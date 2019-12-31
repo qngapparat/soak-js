@@ -12,5 +12,9 @@
     "node"
   ],
   "author": "Jakob Wallnoefer <jakob.wallnoefer@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.596.0",
+    "uuid": "^3.3.3"
+  }
 }
