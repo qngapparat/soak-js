@@ -36,14 +36,23 @@ class ForLambda {
 
   /**
    * 
-   * @param {(string|Buffer)} data The data to be dehydrated
+   * // string, Buffer, Stream, Blob, or typed array object
+   * @param {(string|Buffer|Stream|Blob|Array)} data The data to be dehydrated
    * @returns {Object} The function invocation result, or a S3 Key thereof
    */
   _dehydrate(data) {
     if (data.length > this.threshold || this.forceSave === true) {
       const key = uuidv4();
       // TODO return ARN or URL
-      return putS3(this.bucket, key, data)
+
+      const isPlainObject = (obj) => Object.prototype.toString.call(obj) === '[object Object]';
+      
+      // ensure plain objects are stringified first
+      let preppedData = isPlainObject(data)
+        ? JSON.stringify(data)
+        : data
+
+      return putS3(this.bucket, key, preppedData)
         .then(() => ({ _pointer: key }));
     } else {
       return Promise.resolve(data);
