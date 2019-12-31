@@ -12,6 +12,10 @@
     "node"
   ],
   "author": "Jakob Wallnoefer <jakob.wallnoefer@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qngapparat/soak-js"
+  },
   "license": "MIT",
   "dependencies": {
     "uuid": "^3.3.3"
