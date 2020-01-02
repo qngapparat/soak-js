@@ -75,6 +75,7 @@ class ForGoogleHTTP {
       return this._hydrate(req, res)
         .then(fullreq => func(fullreq, res))
         .then(outp => this._dehydrate(outp))
+        .then(outp => res.json(outp));
     }
   }
 }
