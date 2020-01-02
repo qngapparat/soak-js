@@ -17,10 +17,11 @@ declare class ForLambda {
      * @param {any} event The Lambda Invocation event
      * @returns {Object} The guaranteed hydrated event
      */
-    _hydrate(event: any): any;
+    _hydrate(event: any, context: any, callback: any, ...rest: any[]): any;
     /**
      *
-     * @param {(string|Buffer)} data The data to be dehydrated
+     * // string, Buffer, Stream, Blob, or typed array object
+     * @param {(string|Buffer|Stream|Blob|Array)} data The data to be dehydrated
      * @returns {Object} The function invocation result, or a S3 Key thereof
      */
     _dehydrate(data: any): any;

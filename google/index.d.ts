@@ -1,9 +1,10 @@
+export = ForGoogleHTTP;
 /**
  * Class representing a configured GC HTTP Function wrapper.
  * Ie. functions with the signature (req, res)
  * @see {@link https://cloud.google.com/functions/docs/concepts/events-triggers|HTTP vs Background - Google Cloud Docs}
  */
-export class ForGoogleHTTP {
+declare class ForGoogleHTTP {
     /**
      * @param {string} bucket The GC Storage Bucket name to stash results in
      * @param {number} [threshold=20] The output length above which we want to return a pointer
@@ -22,11 +23,10 @@ export class ForGoogleHTTP {
      * @param {string|Object} data The output of the user function
      */
     _dehydrate(data: any): any;
-}
-/**
- * Class representing a configured GC HTTP Function wrapper.
- * ie. Functions with the signature (data, context, callback)
- * @see {@link https://cloud.google.com/functions/docs/concepts/events-triggers|HTTP vs Background - Google Cloud Docs}
- */
-export class ForGoogleBackground {
+    /**
+     *
+     * @param {function} func The user function to run on GC
+     * @returns {Object} The function invocation result, or a GCStorage key thereof
+     */
+    soak(func: Function): any;
 }

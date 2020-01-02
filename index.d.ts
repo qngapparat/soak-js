@@ -1,2 +1,1 @@
-export = forLambda;
-declare const forLambda: typeof import("./amazon");
+export const Google: typeof import("./google");

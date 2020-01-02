@@ -1,4 +1,4 @@
-const { Storage } = require('@goog1le-cloud/storage')
+const { Storage } = require('@google-cloud/storage')
 const storage = new Storage();
 const fs = require('fs');
 const path = require('path');
