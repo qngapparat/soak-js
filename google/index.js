@@ -25,7 +25,7 @@ class ForGoogleHTTP {
    */
   _hydrate(req, res) {
     const _pointer = req.body._pointer; // || req.query._pointer // TODO Then pointers cannot be signed, only URLs/names! Otherwise they would be cached by Internet HTTP servers
-    if (pointer != null) {
+    if (_pointer != null) {
       // hydrate from GC Storage
       return getGC(this.bucket, _pointer)
       .then(retr => {
