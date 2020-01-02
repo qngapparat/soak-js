@@ -81,16 +81,13 @@ class ForGoogleHTTP {
 
 
 
-/**
- * Class representing a configured GC HTTP Function wrapper. 
- * ie. Functions with the signature (data, context, callback)
- * @see {@link https://cloud.google.com/functions/docs/concepts/events-triggers|HTTP vs Background - Google Cloud Docs}
- */
-class ForGoogleBackground {
+// /**
+//  * Class representing a configured GC HTTP Function wrapper. 
+//  * ie. Functions with the signature (data, context, callback)
+//  * @see {@link https://cloud.google.com/functions/docs/concepts/events-triggers|HTTP vs Background - Google Cloud Docs}
+//  */
+// class ForGoogleBackground {
 
-};
+// };
 
-module.exports = {
-  ForGoogleHTTP,
-  ForGoogleBackground
-}
+module.exports = ForGoogleHTTP
