@@ -1,5 +1,4 @@
 const uuidv4 = require('uuid/v4');
-const express = require('express');
 const fs = require('fs');
 const { getGC, putGC } = require('./utils');
 /**
