@@ -14,7 +14,7 @@ function getGC(bucketname, key) {
   const bucket = storage.bucket(bucketname)
   const remoteFile = bucket.file(key)
 
-  return file.download()
+  return remoteFile.download()
     .then(data => data[0]) // contents
 }
 
