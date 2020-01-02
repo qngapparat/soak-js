@@ -33,9 +33,12 @@ function putGC(bucketname, key, content){
   s.push(content);
   s.push(null);
 
-  return s.pipe(remoteFile.createWriteStream())
-    .on('error', (err) => console.log(err))
-    .on('finish', () => console.log("Finished transferring file to GC!"));
+  return new Promise((resolve, reject) => {
+    s.pipe(remoteFile.createWriteStream())
+      .on('error', (err) => reject(`Errored in putGC: ${ err }`))
+      .on('finish', resolve);
+  });
+  
 }
 
 module.exports = {
