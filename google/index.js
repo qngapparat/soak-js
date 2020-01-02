@@ -64,6 +64,19 @@ class ForGoogleHTTP {
       return Promise.resolve(data)
     }
   };
+
+  /**
+   * 
+   * @param {function} func The user function to run on GC
+   * @returns {Object} The function invocation result, or a GCStorage key thereof
+   */
+  soak(func) {
+    return (req, res) => {
+      return this._hydrate(req, res)
+        .then(fullreq => func(fullreq, res))
+        .then(outp => this._dehydrate(outp))
+    }
+  }
 }
 
 
