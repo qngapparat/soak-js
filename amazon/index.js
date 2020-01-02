@@ -1,5 +1,5 @@
 const uuidv4 = require('uuid/v4');
-const { getS3, putS3 } = require('./common');
+const { getS3, putS3 } = require('./utils');
 
 /** Class representing a configured lambda wrapper */
 class ForLambda {
@@ -21,7 +21,7 @@ class ForLambda {
    * @param {any} event The Lambda Invocation event
    * @returns {Object} The guaranteed hydrated event
    */
-  _hydrate(event) {
+  _hydrate(event, context, callback, ...rest) {
     if (event._pointer) {
       // TODO accept ARN or URL instead of key
       return getS3(this.bucket, event._pointer)
@@ -30,7 +30,7 @@ class ForLambda {
           ...retr,
         }));
     } else {
-      return Promise.resolve(event);
+      return Promise.resolve(event); // TODO have it return all args + hydrated event, then chaining below is easier?
     }
   }
 
@@ -66,7 +66,7 @@ class ForLambda {
    */
   soak(func){
     return (event, context, callback, ...rest) => {
-      return this._hydrate(event)
+      return this._hydrate(event, context, callback, ...rest)
         .then((fullevent) => func(fullevent, context, callback, ...rest))
         .then((outp) => this._dehydrate(outp))
     }

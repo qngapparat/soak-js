@@ -1,3 +1,3 @@
-const forLambda = require('./forLambda');
+const forLambda = require('./amazon');
 
 module.exports = forLambda;
