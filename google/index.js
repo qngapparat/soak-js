@@ -7,7 +7,7 @@ const { getGC, putGC } = require('./utils');
  * Ie. functions with the signature (req, res)
  * @see {@link https://cloud.google.com/functions/docs/concepts/events-triggers|HTTP vs Background - Google Cloud Docs}
  */
-class ForGoogleHTTP = {
+class ForGoogleHTTP {
 
   /**
    * @param {string} bucket The GC Storage Bucket name to stash results in 
@@ -42,6 +42,9 @@ class ForGoogleHTTP = {
     }
   }
 
+  /**
+   * @param {string|Object} data The output of the user function
+   */
   _dehydrate(data) {
     if (data.length > this.threshold || this.forceSave === true) {
       const key = uuidv4();
@@ -60,7 +63,7 @@ class ForGoogleHTTP = {
     else {
       return Promise.resolve(data)
     }
-  }
+  };
 }
 
 
@@ -70,9 +73,9 @@ class ForGoogleHTTP = {
  * ie. Functions with the signature (data, context, callback)
  * @see {@link https://cloud.google.com/functions/docs/concepts/events-triggers|HTTP vs Background - Google Cloud Docs}
  */
-class ForGoogleBackground = {
+class ForGoogleBackground {
 
-}
+};
 
 module.exports = {
   ForGoogleHTTP,
