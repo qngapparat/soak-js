@@ -14,8 +14,10 @@ function getGC(bucketname, key) {
   const bucket = storage.bucket(bucketname)
   const remoteFile = bucket.file(key)
 
+  // TODO actually return proper object (parse data...)  
   return remoteFile.download()
-    .then(data => data[0]) // contents
+    .then(data => data[0])
+    .then(data => JSON.parse(data)) // contents
 }
 
 function putGC(bucketname, key, content){ 
