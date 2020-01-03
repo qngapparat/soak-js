@@ -33,7 +33,10 @@ class ForGoogleHTTP {
         console.log("GETGC res type: ", typeof retr);
         return {
           ...req,
-          ...retr
+          body: {
+            ...req.body, // hydrate data from Storage into request body
+            ...retr
+          }
         }
       });
     }
