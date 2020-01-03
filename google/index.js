@@ -29,15 +29,15 @@ class ForGoogleHTTP {
       // hydrate from GC Storage
       return getGC(this.bucket, _pointer)
       .then(retr => {
-        console.log("GETGC returned: ", retr, JSON.stringify(retr))
-        console.log("GETGC res type: ", typeof retr);
-        return {
+        const hydratedReq = {
           ...req,
           body: {
-            ...req.body, // hydrate data from Storage into request body
+            ...req.body, // hydrate fields into request body
             ...retr
           }
         }
+        delete hydratedReq._pointer // remove the pointer from body
+        return hydratedReq;
       });
     }
     else {
