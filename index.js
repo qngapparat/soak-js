@@ -1,8 +1,8 @@
 
-const Amazon = require('./amazon');
-const Google = require('./google');
+const amazon = require('./amazon');
+const google = require('./google');
 
 module.exports = {
-  Amazon,
-  Google
+  amazon,
+  google
 }

@@ -1,30 +1,18 @@
 const uuidv4 = require('uuid/v4');
 const { getS3, putS3 } = require('./utils');
-
-/** Class representing a configured lambda wrapper */
-class ForLambda {
   /**
-   * 
-   * @param {string} bucket The S3 bucket name to stash results in
-   * @param {number} [thresholdLen=20] The output length above which we want to return a pointer
-   * @param {boolean} [forceSave=false] Force to return a pointer
-   * @class
-   */
-  constructor(bucket, threshold=20, forceSave=false) {
-    this.bucket = bucket;
-    this.threshold = threshold;
-    this.forceSave = forceSave;
-  }
-
-  /**
-   * 
-   * @param {any} event The Lambda Invocation event
+   * @param {Object} event The Lambda Invocation event object
+   * @param {Object} soakOptions Options are 'bucket', 'threshold', and 'forceSave' // TODO doc like fetch's options object 
    * @returns {Object} The guaranteed hydrated event
    */
-  _hydrate(event, context, callback, ...rest) {
+  function _hydrate(event, soakOptions) {
     if (event._pointer) {
+    
+      if(soakOptions.bucket == null){
+        throw new Error('Tried to hydrate, but bucket was not specified. If you want to hydrate, you have to specify the bucket field in soakOptions');
+      }
       // TODO accept ARN or URL instead of key
-      return getS3(this.bucket, event._pointer)
+      return getS3(soakOptions.bucket, event._pointer)
         .then((retr) => ({
           ...event,
           ...retr, // TODO remove _pointer field
@@ -36,15 +24,14 @@ class ForLambda {
 
   /**
    * 
-   * // string, Buffer, Stream, Blob, or typed array object
    * @param {(string|Buffer|Stream|Blob|Array)} data The data to be dehydrated
+   * @param {Object} soakOptions Options are 'bucket', 'threshold', and 'forceSave'
    * @returns {Object} The function invocation result, or a S3 Key thereof
    */
-  _dehydrate(data) {
-    if (data.length > this.threshold || this.forceSave === true) {
+  function _dehydrate(data, soakOptions) {
+    if (data.length > soakOptions.threshold || soakOptions.forceSave === true) {
       const key = uuidv4();
       // TODO return ARN or URL
-
       const isPlainObject = (obj) => Object.prototype.toString.call(obj) === '[object Object]';
       
       // ensure plain objects are stringified first
@@ -52,7 +39,7 @@ class ForLambda {
         ? JSON.stringify(data)
         : data
 
-      return putS3(this.bucket, key, preppedData)
+      return putS3(soakOptions.bucket, key, preppedData)
         .then(() => ({ _pointer: key }));
     } else {
       return Promise.resolve(data);
@@ -62,15 +49,16 @@ class ForLambda {
   /**
    * 
    * @param {Function} func Your function to run on Lambda
+   * @param {Object} [soakOptions={}] Options are 'bucket', 'threshold', and 'forceSave'
    * @returns {Object} The function invocation result, or a S3 Key thereof
    */
-  soak(func){
+  function soak(func, soakOptions={} ){
     return (event, context, callback, ...rest) => {
-      return this._hydrate(event, context, callback, ...rest)
-        .then((fullevent) => func(fullevent, context, callback, ...rest))
-        .then((outp) => this._dehydrate(outp))
+      return _hydrate(event, soakOptions)
+        .then((fullevent) => func(fullevent, context, callback))
+        .then((outp) => _dehydrate(outp, soakOptions))
     }
   }
-}
 
-module.exports = ForLambda;
+
+module.exports = soak;

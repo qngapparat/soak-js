@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pub": "rm -f *.d.ts; rm -f amazon/*.d.ts; rm -f google/*.d.ts; tsc; npm publish"
+    "pub": "echo 'make sure you updated the tsc files!'; npm publish"
   },
   "keywords": [
     "faas",
@@ -22,5 +22,10 @@
     "@google-cloud/storage": "^4.2.0",
     "aws-sdk": "^2.597.0",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "eslint": "^6.8.0"
   }
 }

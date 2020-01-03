@@ -1,2 +1,2 @@
-export const Amazon: typeof import("./amazon");
-export const Google: typeof import("./google");
+export const amazon: typeof import("./amazon");
+export const google: typeof import("./google");
