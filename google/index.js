@@ -31,7 +31,6 @@ class ForGoogleHTTP {
       .then(retr => {
         console.log("GETGC returned: ", retr, JSON.stringify(retr))
         console.log("GETGC res type: ", typeof retr);
-        console.log("returning", {...req, retr}, JSON.stringify({...req,...retr}))
         return {
           ...req,
           ...retr
