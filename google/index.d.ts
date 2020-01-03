@@ -1,15 +1,15 @@
-export = soak;
-/**
- *
- * @param {Function} func The user function to run on GC
- * @param {Object} [soakOptions={}] The soakoptions object
- * @returns {Object} The function invocation result, or a GCStorage key thereof
- *
- */
+import * as express from 'express'
 
- interface soakOptions {
-   bucket?: string,
-   threshold?: number,
-   forceSave?: boolean
- }
-declare function soak(func: Function, soakOptions?: soakOptions): any;
+// how the user configures soak
+interface SoakOptionsType {
+  bucket?: string,
+  threshold?: number,
+  forceSave?: boolean
+}
+
+declare function soak(
+    func: (req: express.Request, res: express.Response) => object,
+    soakOptions?: SoakOptionsType
+  ): object | { _pointer: string }
+
+export = soak;
