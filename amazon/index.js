@@ -27,7 +27,7 @@ class ForLambda {
       return getS3(this.bucket, event._pointer)
         .then((retr) => ({
           ...event,
-          ...retr,
+          ...retr, // TODO remove _pointer field
         }));
     } else {
       return Promise.resolve(event); // TODO have it return all args + hydrated event, then chaining below is easier?
