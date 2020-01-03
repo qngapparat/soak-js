@@ -3,7 +3,7 @@ import * as express from 'express'
 // how the user configures soak
 interface SoakOptionsType {
   bucket?: string,
-  threshold?: number,
+  thresholdBytes?: number,
   forceSave?: boolean
 }
 

@@ -1,4 +1,5 @@
 const uuidv4 = require('uuid/v4');
+const sizeof = require('object-sizeof');
 const fs = require('fs');
 const { getGC, putGC } = require('./utils');
 
@@ -37,7 +38,7 @@ function _hydrate(req, res, soakOptions) {
  * @param {Object} soakOptions The soakoptions object
  */
 function _dehydrate(data, soakOptions) {
-  if (data.length > soakOptions.threshold || soakOptions.forceSave === true) {
+  if (sizeof(data) > soakOptions.thresholdBytes || soakOptions.forceSave === true) {
     const key = uuidv4();
 
     const isPlainObject = (obj) => Object.prototype.toString.call(obj) === '[object Object]';

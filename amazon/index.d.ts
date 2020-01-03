@@ -1,6 +1,6 @@
 interface SoakOptionsType {
   bucket?: string,
-  threshold?: number,
+  thresholdBytes?: number,
   forceSave?: boolean
 }
 

@@ -1,8 +1,10 @@
 const uuidv4 = require('uuid/v4');
+const sizeof = require('object-sizeof');
 const { getS3, putS3 } = require('./utils');
+
   /**
    * @param {Object} event The Lambda Invocation event object
-   * @param {Object} soakOptions Options are 'bucket', 'threshold', and 'forceSave' // TODO doc like fetch's options object 
+   * @param {Object} soakOptions Options are 'bucket', 'thresholdBytes', and 'forceSave' // TODO doc like fetch's options object 
    * @returns {Object} The guaranteed hydrated event
    */
   function _hydrate(event, soakOptions) {
@@ -25,11 +27,11 @@ const { getS3, putS3 } = require('./utils');
   /**
    * 
    * @param {(string|Buffer|Stream|Blob|Array)} data The data to be dehydrated
-   * @param {Object} soakOptions Options are 'bucket', 'threshold', and 'forceSave'
+   * @param {Object} soakOptions Options are 'bucket', 'thresholdBytes', and 'forceSave'
    * @returns {Object} The function invocation result, or a S3 Key thereof
    */
   function _dehydrate(data, soakOptions) {
-    if (data.length > soakOptions.threshold || soakOptions.forceSave === true) {
+    if (sizeof(data) > soakOptions.thresholdBytes || soakOptions.forceSave === true) {
       const key = uuidv4();
       // TODO return ARN or URL
       const isPlainObject = (obj) => Object.prototype.toString.call(obj) === '[object Object]';
@@ -49,7 +51,7 @@ const { getS3, putS3 } = require('./utils');
   /**
    * 
    * @param {Function} func Your function to run on Lambda
-   * @param {Object} [soakOptions={}] Options are 'bucket', 'threshold', and 'forceSave'
+   * @param {Object} [soakOptions={}] Options are 'bucket', 'thresholdBytes', and 'forceSave'
    * @returns {Object} The function invocation result, or a S3 Key thereof
    */
   function soak(func, soakOptions={} ){
