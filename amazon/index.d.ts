@@ -7,6 +7,6 @@ interface SoakOptionsType {
 declare function soak(
   func: (event: any, context?: any, callback?: any) => object, 
   soakOptions?: SoakOptionsType
- ): object | { _pointer: string };
+ ): (event:any , context:any , callback: any) => object | { _pointer: string }
 
 export = soak;

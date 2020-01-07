@@ -36,26 +36,23 @@ function getExecutingPlatform(first, second, ...rest) {
 
 /**
  * 
- * @param {any} first First function invocation arg
- * @param {any} second Second invocation arg
- * @param  {...any} [rest] Rest of invocation args
+ * @param {Function} func The userfunction to run
+ * @param {SoakConfig} config Optional config
  */
 function universalSoak(func, config = {}) {
-  // think of this as a function factory
-  // depending on platform ...
-  // ... run userfunc with a different hydration wrapper (Google cloud storage, aws, ...)
-  const platform = getExecutingPlatform(first, second, ...rest)
-  if (platform === 'google') {
-    // to be precise, (req, res) => ...
-    return (...args) => google(...args)
+  // kind of a function factory
+  return (first, second, ...rest) => {
+    const platform = getExecutingPlatform(first, second, ...rest)
+    
+    if (platform === 'google') {
+      return google(func, config)(first, second, ...rest)
+    }
+    if(platform === 'amazon') {
+      return amazon(func, config)(first, second, ...rest)
+    }
+    return `Support for ${platform} not implemented yet ://`
   }
-  // to be precise, (event, context, callback) => ...
-  if (platform === 'amazon') {
-    return (...args) => amazon(...args)
-  }
-
-  // else
-  return `Support for ${platform} not implemented yet ://`
+ 
 }
 
 module.exports = {

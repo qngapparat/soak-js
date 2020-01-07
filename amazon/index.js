@@ -53,7 +53,7 @@ const { getS3, putS3 } = require('./utils');
    * 
    * @param {Function} func Your function to run on Lambda
    * @param {Object} [soakOptions={}] Options are 'bucket', 'thresholdBytes', and 'forceSave'
-   * @returns {Object} The function invocation result, or a S3 Key thereof
+   * @returns {Function} A function when invoked with args, will run hydrate, userfunc with args + hyd, dehydrate
    */
   function soak(func, soakOptions={} ){
     return (event, context, callback, ...rest) => {

@@ -10,6 +10,6 @@ interface SoakOptionsType {
 declare function soak(
     func: (req: express.Request, res: express.Response) => object,
     soakOptions?: SoakOptionsType
-  ): object | { _pointer: string }
+  ): (req: express.Request, res: express.Response) => object | { _pointer: string }
 
 export = soak;

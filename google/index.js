@@ -60,7 +60,7 @@ function _dehydrate(data, soakOptions) {
  * 
  * @param {Function} func The user function to run on GC
  * @param {Object} [soakOptions={}] The soakoptions object 
- * @returns {Object} The function invocation result, or a GCStorage key thereof
+ * @returns {Function} A function when invoked with args, will run hydrate, userfunc with args + hyd, dehydrate
  * 
  */
 function soak(func, soakOptions = {}) {
