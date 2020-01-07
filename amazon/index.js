@@ -18,6 +18,7 @@ const { getS3, putS3 } = require('./utils');
         .then((retr) => ({
           ...event,
           ...retr, // TODO remove _pointer field
+          // TODO swap order of these to not overwrite event fields --- if there are two identical ones, the event one shoud dominate, not the hydrated
         }));
     } else {
       return Promise.resolve(event); // TODO have it return all args + hydrated event, then chaining below is easier?

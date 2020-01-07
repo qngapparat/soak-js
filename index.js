@@ -2,6 +2,12 @@
 const amazon = require('./amazon');
 const google = require('./google');
 
+/**
+ * Given the original invocation arguments, detemines which platform we are on
+ * @param {object} first 
+ * @param {object} second 
+ * @param  {...any} rest 
+ */
 function getExecutingPlatform(first = {}, second = {}, ...rest = []) {
   // get platform
   // on amazon, second param is 'context' and hsa these fields
@@ -27,5 +33,7 @@ function getExecutingPlatform(first = {}, second = {}, ...rest = []) {
 }
 
 module.exports = {
-  getExecutingPlatform
+  getExecutingPlatform,
+  amazon,
+  google
 }
