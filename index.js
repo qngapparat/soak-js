@@ -8,10 +8,11 @@ const google = require('./google');
  * @param {object} second 
  * @param  {...any} rest 
  */
-function getExecutingPlatform(first = {}, second = {}, ...rest = []) {
+function getExecutingPlatform(first, second, ...rest) {
   // get platform
   // on amazon, second param is 'context' and hsa these fields
   if (
+    second && 
     typeof second.invokedFunctionArn === 'string'
     && typeof second.functionName === 'string'
     && typeof second.awsRequestId === 'string'
@@ -20,6 +21,7 @@ function getExecutingPlatform(first = {}, second = {}, ...rest = []) {
   }
 
   if(
+    first &&
     typeof first.method === 'string'
     && first.get  // some methods that Express' Request objs alwys have
     && first.accepts 
