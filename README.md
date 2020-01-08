@@ -1,15 +1,6 @@
 # soak-js
 
-No more size limits for FaaS inputs & outputs. 
-
-A hydration - dehydration wrapper.
-
-|   | Amazon AWS Lambda  |  Google Cloud Functions  |  using soak-js  |
-|---|---|---|---|
-| **Invocation payload**  | 6 MB (sync)  | 10 MB  | unlimited  |
-|                     | 256 KB (async)  | | unlimited  |
-| **Response**  | 6 MB (sync)  | 10 MB  | unlimited  |
-|                     | 256 KB (async)  |   | unlimited  |
+On-the-fly FaaS (de)hydration. No more input & output size limits.
 
 ## Install
 ```shell
@@ -73,6 +64,17 @@ return { almost: 'too', large: 'output' }
 return { too: 'large', json: 'output' }
 // => { _pointer: stashedOutputKey.json }
 ```
+
+### Platforms
+
+
+|   | Amazon AWS Lambda  |  Google Cloud Functions  |  using soak-js  |
+|---|---|---|---|
+| **Invocation payload**  | 6 MB (sync)  | 10 MB  | unlimited  |
+|                     | 256 KB (async)  | | unlimited  |
+| **Response**  | 6 MB (sync)  | 10 MB  | unlimited  |
+|                     | 256 KB (async)  |   | unlimited  |
+
 
 ## Licence
 
