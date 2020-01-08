@@ -1,6 +1,6 @@
 # soak-js
 
-On-the-fly FaaS (de)hydration. No more input & output size limits.
+On-the-fly hydration for FaaS. No more input & output size limits.
 
 ## Install
 ```shell
