@@ -29,7 +29,7 @@ exports.handler = soak(myFunction, {
 ```js
 const soak = require('soak-js');
 
-const myFunction = (req, res) => ({ foo: 'bar' }) // don't use req.json
+const myFunction = (req, res) => ({ foo: 'bar' }) // don't use res.json()
 
 exports.myFunction = soak(myFunction, {
   bucket: 'some-gcloud-bucket-for-stashing
