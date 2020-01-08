@@ -7,7 +7,7 @@ On-the-fly hydration for FaaS. No more input & output size limits.
 npm i soak-js
 ```
 
-## How
+## Basic Usage
 
 Before exporting, wrap your function in `soak`
 
