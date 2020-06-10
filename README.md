@@ -32,7 +32,7 @@ const soak = require('soak-js');
 const myFunction = (req, res) => ({ foo: 'bar' }) // don't use res.json()
 
 exports.myFunction = soak(myFunction, {
-  bucket: 'some-gcloud-bucket-for-stashing
+  bucket: 'some-gcloud-bucket-for-stashing'
 })
 ```
 ### Pass it unlimited inputs
