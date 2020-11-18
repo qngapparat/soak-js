@@ -1,13 +1,13 @@
 # soak-js
 
-On-the-fly FaaS (de)hydration. No more input & output size limits.
+On-the-fly hydration for FaaS. No more input & output size limits.
 
 ## Install
 ```shell
 npm i soak-js
 ```
 
-## How
+## Basic Usage
 
 Before exporting, wrap your function in `soak`
 
@@ -32,7 +32,7 @@ const soak = require('soak-js');
 const myFunction = (req, res) => ({ foo: 'bar' }) // don't use res.json()
 
 exports.myFunction = soak(myFunction, {
-  bucket: 'some-gcloud-bucket-for-stashing
+  bucket: 'some-gcloud-bucket-for-stashing'
 })
 ```
 ### Pass it unlimited inputs

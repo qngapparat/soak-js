@@ -1,6 +1,6 @@
 {
   "name": "soak-js",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "description": "On-the-fly hydration for FaaS",
   "main": "index.js",
   "scripts": {
